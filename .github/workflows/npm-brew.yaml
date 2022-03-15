@@ -28,7 +28,7 @@ jobs:
         id: download
         with:
           branch: release
-          required: ci.yaml
+          workflow: ci.yaml
           name: "npm-package"
           path: release-npm-package
 
