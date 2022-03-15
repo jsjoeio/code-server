@@ -29,7 +29,7 @@ jobs:
         with:
           branch: release
           workflow: 20000237
-          workflow_conclusion: failed
+          workflow_conclusion: completed
           name: "npm-package"
           path: release-npm-package
 
