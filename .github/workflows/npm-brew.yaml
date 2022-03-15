@@ -28,7 +28,7 @@ jobs:
         id: download
         with:
           branch: release
-          workflow: ci.yaml
+          workflow: Build
           workflow_conclusion: failed
           name: "npm-package"
           path: release-npm-package
