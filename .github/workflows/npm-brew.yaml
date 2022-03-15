@@ -29,6 +29,7 @@ jobs:
         with:
           branch: release
           workflow: ci.yaml
+          workflow_conclusion: neutral
           name: "npm-package"
           path: release-npm-package
 
