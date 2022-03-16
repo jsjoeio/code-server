@@ -23,7 +23,7 @@ main() {
   fi
 
   # Make sure the git clone step is successful
-  if directory_exists "homebrew-core"; then
+  if ! directory_exists "homebrew-core"; then
     echo "git clone failed. Cannot find homebrew-core directory."
     ls -la
     exit 1
@@ -61,7 +61,7 @@ main() {
   echo 'echo $HOMEBREW_GITHUB_API_TOKEN' > "$PATH_TO_ASKPASS"
 
   # Make sure the git-askpass.sh file creation is successful
-  if file_exists "$PATH_TO_GIT_ASKPASS"; then
+  if ! file_exists "$PATH_TO_GIT_ASKPASS"; then
     echo "git-askpass.sh not found in $HOME."
     ls -la "$HOME"
     exit 1
@@ -71,7 +71,7 @@ main() {
   chmod +x "$PATH_TO_GIT_ASKPASS"
 
   # Make sure the git-askpass.sh file is executable
-  if is_executable "$PATH_TO_GIT_ASKPASS"; then
+  if ! is_executable "$PATH_TO_GIT_ASKPASS"; then
     echo "$PATH_TO_GIT_ASKPASS is not executable."
     ls -la "$PATH_TO_GIT_ASKPASS"
     exit 1
