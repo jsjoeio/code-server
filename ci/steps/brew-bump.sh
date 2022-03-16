@@ -45,7 +45,7 @@ main() {
 
   # TODO@jsjoeio - can I somehow check that this succeeded?
   echo "Fetching upstream Homebrew/hombrew-core commits"
-  git fetch upstream
+  git fetch upstream master
 
   # TODO@jsjoeio - can I somehow check that this succeeded?
   echo "Merging in latest Homebrew/homebrew-core changes"
