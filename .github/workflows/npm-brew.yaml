@@ -18,32 +18,10 @@ concurrency:
 jobs:
   # NOTE: this job requires curl, jq and yarn
   # All of them are included in ubuntu-latest.
-  npm:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        id: download
-        with:
-          branch: release
-          workflow: 20000237
-          workflow_conclusion: failure
-          name: "npm-package"
-          path: release-npm-package
-
-      - name: Publish npm package and tag with "latest"
-        run: yarn publish:npm
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_ENVIRONMENT: "production"
 
   homebrew:
     # The newest version of code-server needs to be available on npm when this runs
     # otherwise, it will 404 and won't open a PR to bump version on homebrew/homebrew-core
-    needs: npm
     runs-on: macos-latest
     steps:
       # Ensure things are up to date
@@ -54,6 +32,12 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - uses: actions/checkout@v3
+
+      - name: Checkout coder/homebrew-core
+        uses: actions/checkout@v3
+        with:
+          repository: coder/homebrew-core
+
       - name: Configure git
         run: |
           git config user.name github-actions

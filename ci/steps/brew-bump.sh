@@ -8,6 +8,7 @@ main() {
   source ./ci/steps/steps-lib.sh
 
   echo "Checking environment variables"
+  VERSION="4.1.0-4970-6afc87b46dfa70adc0afe164a89662aac1a0b0cd"
 
   # We need VERSION to bump the brew formula
   if ! is_env_var_set "VERSION"; then
@@ -20,13 +21,6 @@ main() {
     echo "HOMEBREW_GITHUB_API_TOKEN is not set"
     exit 1
   fi
-
-  # NOTE: we need to make sure coderci/homebrew-core
-  # is up-to-date
-  # otherwise, brew bump-formula-pr will use an
-  # outdated base
-  echo "Cloning coderci/homebrew-core"
-  git clone https://github.com/coderci/homebrew-core.git
 
   # Make sure the git clone step is successful
   if directory_exists "homebrew-core"; then
