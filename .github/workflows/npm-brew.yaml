@@ -45,7 +45,8 @@ jobs:
           git config user.email github-actions@github.com
 
       - name: Show contents
-        run: pwd && ls -la
+        run: |
+          pwd && ls -la
 
       - name: Bump code-server homebrew version
         env:
