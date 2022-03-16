@@ -51,7 +51,7 @@ main() {
   echo "Merging in latest Homebrew/homebrew-core changes"
   git merge upstream/master
 
-  echo "Pushing changes to coderci/homebrew-core fork on GitHub"
+  echo "Pushing changes to coder/homebrew-core fork on GitHub"
 
   # GIT_ASKPASS lets us use the password when pushing without revealing it in the process list
   # See: https://serverfault.com/a/912788
@@ -80,7 +80,7 @@ main() {
   # Export the variables so git sees them
   export HOMEBREW_GITHUB_API_TOKEN="$HOMEBREW_GITHUB_API_TOKEN"
   export GIT_ASKPASS="$PATH_TO_GIT_ASKPASS"
-  git push https://coder-oss@github.com/coder-oss/homebrew-core.git --all
+  git push https://coder@github.com/coder/homebrew-core.git --all
 
   # Find the docs for bump-formula-pr here
   # https://github.com/Homebrew/brew/blob/master/Library/Homebrew/dev-cmd/bump-formula-pr.rb#L18
