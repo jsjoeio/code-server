@@ -80,7 +80,7 @@ main() {
   # Export the variables so git sees them
   export HOMEBREW_GITHUB_API_TOKEN="$HOMEBREW_GITHUB_API_TOKEN"
   export GIT_ASKPASS="$PATH_TO_GIT_ASKPASS"
-  git push https://coder@github.com/coder/homebrew-core.git --all
+  git push https://jsjoeio@github.com/coder/homebrew-core --all
 
   # Find the docs for bump-formula-pr here
   # https://github.com/Homebrew/brew/blob/master/Library/Homebrew/dev-cmd/bump-formula-pr.rb#L18
