@@ -58,7 +58,7 @@ main() {
   PATH_TO_GIT_ASKPASS="$HOME/git-askpass.sh"
   # Source: https://serverfault.com/a/912788
   # shellcheck disable=SC2016,SC2028
-  echo 'echo $HOMEBREW_GITHUB_API_TOKEN' > "$PATH_TO_ASKPASS"
+  echo 'echo $HOMEBREW_GITHUB_API_TOKEN' > "$PATH_TO_GIT_ASKPASS"
 
   # Make sure the git-askpass.sh file creation is successful
   if ! file_exists "$PATH_TO_GIT_ASKPASS"; then
@@ -79,7 +79,7 @@ main() {
 
   # Export the variables so git sees them
   export HOMEBREW_GITHUB_API_TOKEN="$HOMEBREW_GITHUB_API_TOKEN"
-  export GIT_ASKPASS="$PATH_TO_ASKPASS"
+  export GIT_ASKPASS="$PATH_TO_GIT_ASKPASS"
   git push https://coder-oss@github.com/coder-oss/homebrew-core.git --all
 
   # Find the docs for bump-formula-pr here
