@@ -31,8 +31,8 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Checkout code-serer
-      - uses: actions/checkout@v3
+      - name: Checkout code-server
+        uses: actions/checkout@v3
 
       - name: Checkout coder/homebrew-core
         uses: actions/checkout@v3
@@ -43,8 +43,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          pwd
-          ls -la
 
       - name: Bump code-server homebrew version
         env:
