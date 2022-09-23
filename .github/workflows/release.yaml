@@ -60,7 +60,6 @@ jobs:
           workflow_conclusion: completed
           check_artifacts: true
           name: npm-package
-          path: ./npm-package
 
       - name: Decompress npm package
         run: tar -xzf package.tar.gz
@@ -169,8 +168,7 @@ jobs:
           workflow_conclusion: completed
           check_artifacts: true
           name: npm-package
-          path: ./npm-package
-
+          
       - name: Decompress npm package
         run: tar -xzf package.tar.gz
 
@@ -220,7 +218,6 @@ jobs:
           workflow_conclusion: completed
           check_artifacts: true
           name: npm-package
-          path: ./npm-package
 
       - name: Decompress npm package
         run: tar -xzf package.tar.gz
@@ -247,31 +244,6 @@ jobs:
       - name: Build packages with nfpm
         run: yarn package
 
-      - uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          discussion_category_name: "📣 Announcements"
-          files: ./release-packages/*
-
-  draft:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Download artifacts
-        uses: dawidd6/action-download-artifact@v2
-        id: download
-        with:
-          branch: ${{ github.ref }}
-          workflow: build.yaml
-          workflow_conclusion: completed
-          check_artifacts: true
-          name: release-packages
-          path: ./release-packages
-
-# fake 
       - uses: softprops/action-gh-release@v1
         with:
           draft: true
