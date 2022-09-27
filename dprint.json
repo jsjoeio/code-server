@@ -1,0 +1,15 @@
+{
+  "includes": ["**/*.*"],
+  "excludes": ["lib/vscode", "ci/helm-chart", "test/scripts", "docs"],
+  "plugins": [
+    "https://plugins.dprint.dev/prettier-0.11.0.json@385edfc0e1212b3be6412cda49322ecd62cb38ac71b9b463869bebf23a4767e3"
+  ],
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "singleQuote": false,
+    "useTabs": false
+  }
+}
