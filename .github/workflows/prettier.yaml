@@ -82,7 +82,7 @@ jobs:
         with:
           path: |
             "**/node_modules"
-            "~/.cache/dprint"
+            ".cache/dprint"
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', '**/dprint.json') }}
 
       - name: Install dependencies
