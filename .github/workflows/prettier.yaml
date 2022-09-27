@@ -1,0 +1,64 @@
+name: Prettier
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Cancel in-progress runs for pull requests when developers push
+# additional changes, and serialize builds in branches.
+# https://docs.github.com/en/actions/using-jobs/using-concurrency#example-using-concurrency-to-cancel-any-in-progress-job-or-run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Note: if: success() is used in several jobs -
+# this ensures that it only executes if all previous jobs succeeded.
+
+# if: steps.cache-node-modules.outputs.cache-hit != 'true'
+# will skip running `yarn install` if it successfully fetched from cache
+
+jobs:
+  fmt:
+    name: yarn fmt
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Node.js v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Fetch dependencies from cache
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: yarn-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            yarn-build-
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: SKIP_SUBMODULE_DEPS=1 yarn --frozen-lockfile
+
+      - name: Format files with Prettier
+        run: yarn fmt
+
+  actionsx:
+    name: actionsx/prettier
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Run prettier with actionsx/prettier
+        uses: actionsx/prettier@v2
+        with:
+          args: --write --loglevel=warn .
