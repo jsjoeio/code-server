@@ -1,1 +1,3 @@
 lib/vscode
+ci/helm-chart
+test/scripts
