@@ -81,8 +81,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            "**/node_modules"
-            "**/.cache/dprint"
+            **/node_modules
+            ~/.cache/dprint
           key: dprint-node-${{ hashFiles('**/yarn.lock', '**/dprint.json') }}
           restore-keys: |
             dprint-node-
