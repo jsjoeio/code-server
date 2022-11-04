@@ -93,13 +93,13 @@ jobs:
         if: success()
 
       - name: Get and set VERSION
-        id: version
         run: |
-          TAG="${{ github.event.inputs.version || github.ref_name }}"
-          VERSION_FROM_TAG="${TAG#v}"
-          echo "{VERSION}={$VERSION_FROM_TAG}" >> $GITHUB_OUTPUT
+          TAG="${{ inputs.version || github.ref_name }}"
+          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
 
       - name: Build packages with nfpm
+        env:
+          VERSION: ${{ env.VERSION }}
         run: yarn package
 
       - uses: softprops/action-gh-release@v1
@@ -186,15 +186,13 @@ jobs:
           mv ./node ./release-standalone/lib/node
 
       - name: Get and set VERSION
-        id: version
         run: |
-          TAG="${{ github.event.inputs.version || github.ref_name }}"
-          VERSION_FROM_TAG="${TAG#v}"
-          echo "{VERSION}={$VERSION_FROM_TAG}" >> $GITHUB_OUTPUT
+          TAG="${{ inputs.version || github.ref_name }}"
+          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
 
       - name: Build packages with nfpm
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ env.VERSION }}
         run: yarn package ${NPM_CONFIG_ARCH}
 
       - uses: softprops/action-gh-release@v1
@@ -251,13 +249,13 @@ jobs:
         run: yarn test:native
 
       - name: Get and set VERSION
-        id: version
         run: |
-          TAG="${{ github.event.inputs.version || github.ref_name }}"
-          VERSION_FROM_TAG="${TAG#v}"
-          echo "{VERSION}={$VERSION_FROM_TAG}" >> $GITHUB_OUTPUT
+          TAG="${{ inputs.version || github.ref_name }}"
+          echo "VERSION=${TAG#v}" >> $GITHUB_ENV
 
       - name: Build packages with nfpm
+        env:
+          VERSION: ${{ env.VERSION }}
         run: yarn package
 
       - uses: softprops/action-gh-release@v1
@@ -304,11 +302,11 @@ jobs:
       - name: Modify version
         run: |
           echo "Updating version in root package.json"
-          npm version --prefix release ${{ github.event.inputs.version || github.ref_name }}
+          npm version --prefix release ${{ inputs.version || github.ref_name }}
 
           echo "Updating version in lib/vscode/product.json"
           tmp=$(mktemp) 
-          jq '.codeServerVersion = "${{ github.event.inputs.version || github.ref_name }}"' release/lib/vscode/product.json > "$tmp" && mv "$tmp" release/lib/vscode/product.json
+          jq '.codeServerVersion = "${{ inputs.version || github.ref_name }}"' release/lib/vscode/product.json > "$tmp" && mv "$tmp" release/lib/vscode/product.json
 
       # TODO@jsjoeio - will it throw error if it already exists?
       - name: Compress release package
