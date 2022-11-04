@@ -42,12 +42,12 @@ jobs:
         run: |
           TAG="${{ github.event.inputs.version || github.ref_name }}"
           VERSION="${TAG#v}"
-          echo "{version}={$VERSION}" >> $GITHUB_OUTPUT
+          echo "{VERSION}={$VERSION}" >> $GITHUB_OUTPUT
 
       - name: Publish npm package and tag with "latest"
         run: yarn publish:npm
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ env.VERSION }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_ENVIRONMENT: "production"
