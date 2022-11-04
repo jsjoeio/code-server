@@ -32,7 +32,7 @@ jobs:
       - name: Download npm package from release artifacts
         uses: robinraju/release-downloader@v1.5
         with:
-          repository: "coder/code-server"
+          repository: "jsjoeio/code-server"
           tag: ${{ github.event.inputs.version || github.ref_name }}
           fileName: "package.tar.gz"
           out-file-path: "release-npm-package"
